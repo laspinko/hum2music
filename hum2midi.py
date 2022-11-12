@@ -4,6 +4,7 @@ import tensorflow_hub as hub
 import math
 import statistics
 
+from IPython.display import Audio, Javascript
 from scipy.io import wavfile
 
 from pydub import AudioSegment
@@ -22,6 +23,30 @@ def convert_audio_for_model(user_file, output_file='converted_audio_file.wav'):
   audio.export(output_file, format="wav")
   return output_file
 
+# Converting to the expected format for the model
+# in all the input 4 input method before, the uploaded file name is at
+# the variable uploaded_file_name
+converted_audio_file = convert_audio_for_model('Mary2.wav')
+
+# Loading audio samples from the wav file:
+sample_rate, audio_samples = wavfile.read(converted_audio_file, 'rb')
+
+# NOW TO ACTUALLY RUN THE SPICE MODEL ON THE AUDIO FILE
+
+# We now feed the audio to the SPICE tf.hub model to obtain pitch and uncertainty outputs as tensors.
+model_output = model.signatures["serving_default"](tf.constant(audio_samples, tf.float32))
+
+pitch_outputs = model_output["pitch"]
+uncertainty_outputs = model_output["uncertainty"]
+
+# 'Uncertainty' basically means the inverse of confidence.
+confidence_outputs = 1.0 - uncertainty_outputs
+
+confidence_outputs = list(confidence_outputs)
+
+pitch_outputs = [float(x) for x in pitch_outputs]
+
+indices = range(len (pitch_outputs))
 
 def output2hz(pitch_output):
   # Constants taken from https://tfhub.dev/google/spice/2
@@ -32,6 +57,15 @@ def output2hz(pitch_output):
   cqt_bin = pitch_output * PT_SLOPE + PT_OFFSET;
   return FMIN * 2.0 ** (1.0 * cqt_bin / BINS_PER_OCTAVE)
 
+pitch_outputs_and_rests = [
+    output2hz(p) if c >= 0.8 else 0
+    for i, p, c in zip(indices, pitch_outputs, confidence_outputs)
+]
+
+A4 = 440
+C0 = A4 * pow(2, -4.75)
+note_names = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+
 def hz2offset(freq):
   # This measures the quantization error for a single note.
   if freq == 0:  # Rests always have zero error.
@@ -39,6 +73,13 @@ def hz2offset(freq):
   # Quantized note.
   h = round(12 * math.log2(freq / C0))
   return 12 * math.log2(freq / C0) - h
+
+
+# The ideal offset is the mean quantization error for all the notes
+# (excluding rests):
+offsets = [hz2offset(p) for p in pitch_outputs_and_rests if p != 0]
+
+ideal_offset = statistics.mean(offsets)
 
 def quantize_predictions(group, ideal_offset):
   # Group values are either 0, or a pitch in Hz.
@@ -87,49 +128,6 @@ def get_quantization_and_error(pitch_outputs_and_rests, predictions_per_eighth,
     notes_and_rests.append(note_or_rest)
 
   return quantization_error, notes_and_rests
-
-# Converting to the expected format for the model
-# in all the input 4 input method before, the uploaded file name is at
-# the variable uploaded_file_name
-converted_audio_file = convert_audio_for_model('mary.wav')
-
-# Loading audio samples from the wav file:
-sample_rate, audio_samples = wavfile.read(converted_audio_file, 'rb')
-
-# NOW TO ACTUALLY RUN THE SPICE MODEL ON THE AUDIO FILE
-
-# We now feed the audio to the SPICE tf.hub model to obtain pitch and uncertainty outputs as tensors.
-model_output = model.signatures["serving_default"](tf.constant(audio_samples, tf.float32))
-
-pitch_outputs = model_output["pitch"]
-uncertainty_outputs = model_output["uncertainty"]
-
-# 'Uncertainty' basically means the inverse of confidence.
-confidence_outputs = 1.0 - uncertainty_outputs
-
-confidence_outputs = list(confidence_outputs)
-
-pitch_outputs = [float(x) for x in pitch_outputs]
-
-indices = range(len (pitch_outputs))
-
-
-pitch_outputs_and_rests = [
-    output2hz(p) if c >= 0.8 else 0
-    for i, p, c in zip(indices, pitch_outputs, confidence_outputs)
-]
-
-
-A4 = 440
-C0 = A4 * pow(2, -4.75)
-note_names = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
-
-
-# The ideal offset is the mean quantization error for all the notes
-# (excluding rests):
-offsets = [hz2offset(p) for p in pitch_outputs_and_rests if p != 0]
-
-ideal_offset = statistics.mean(offsets)
 
 
 best_error = float("inf")
