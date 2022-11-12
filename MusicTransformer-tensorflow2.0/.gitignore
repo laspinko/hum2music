@@ -1,0 +1,9 @@
+*.pickle
+*__pycache__
+*.idea
+
+bin/
+result/
+model/
+logs/
+.dfc/
