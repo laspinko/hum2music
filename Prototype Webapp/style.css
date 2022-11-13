@@ -1,0 +1,217 @@
+
+
+
+body{
+	padding: 0;
+	margin: 0;
+	font-family: 'Quicksand', sans-serif;
+}
+.logo{
+	position: absolute;
+	top:0;
+	left: 10px;
+	right: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 50px;
+	font-size: 30px;
+	font-weight: 800;
+	display: flex ;
+	align-items: center;
+	justify-content: center;
+	color: rgb(78, 52, 18);
+}
+
+
+.container{
+	background-image: linear-gradient(rgb(25, 154, 132), rgb(204, 96, 8));
+	height: 100vh;
+	width: 100vw;
+	display: flex ;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.circle{
+	background-image: linear-gradient(rgb(243, 171, 77), rgb(224, 111, 19));
+
+	height: 300px;
+	width: 300px;
+	border-radius: 50%;
+	display: flex ;
+	align-items: center;
+	justify-content: center;
+	box-shadow: 0px 0px 20px -5px rgba(0, 0, 0, 0.5);
+	transition: transform 1s;
+	z-index:999;
+	margin: 20px;
+}
+.icon{
+	height: 64%;
+	width: 64%;
+	animation-duration: 1s;
+	animation-iteration-count: 20;
+}
+/* .barContainer{
+	height: 100vh;
+	width: 100vw;
+	display: flex ;
+	align-items: center;
+	justify-content: center;
+
+}
+.bar{
+	color: red;
+	z-index:9 ;
+} */
+.uploadBtn {
+	height: 40px;
+	width: 150px;
+	border-radius: 25px;
+    background-color:rgb(216, 147, 58);
+	box-shadow: 0px 0px 20px -5px rgba(0, 0, 0, 0.5);
+    color:rgb(78, 52, 18);
+	display: flex ;
+	align-items: center;
+	justify-content: center;
+	margin: 20px;
+	font-weight: 700;
+	transition: transform 1s;
+	z-index: 9999;
+	font-size: larger;
+
+}
+
+.trimBar{
+	position: absolute;
+	z-index: 99;
+	margin-left: 3vw;
+	margin-right: 3vw;
+	top: 36.5vh;
+	left: 10px;
+	right: 10px;
+	align-items: center;
+	text-align: center;
+
+}
+.edit{
+	position: absolute;
+	z-index: 99;
+	margin-left: auto;
+	margin-right: auto;
+	top: 48vh;
+	left: 10px;
+	right: 10px;
+}
+.share{
+	position: absolute;
+	z-index: 99;
+	margin-left: auto;
+	margin-right: auto;
+	bottom: 15vh;
+	left: 10px;
+	right: 10px;
+}
+.buttonContainer{
+	display: flex ;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-around;
+}
+.buttonbox{
+	display: flex ;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 55px;
+	width: 55px;
+}
+
+.buttons{
+	height: 70%;
+	width: 70%;
+}
+.buttons:hover{
+	cursor: pointer;
+	opacity: 0.75;
+	
+}
+#nextBtn{
+	transition: transform 0.7s ease-in-out;
+	height: 50px;
+	width: 200px;
+	border-radius: 25px;
+    background-color:rgb(231, 169, 90);
+	box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.5);
+    color:rgb(78, 52, 18);
+	position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	bottom: 5vh;
+	left: 10px;
+	right: 10px;
+	font-size: larger;
+	font-weight: 700;
+	z-index: 999;
+	display: flex ;
+	align-items: center;
+	justify-content: center;
+}
+.trimTable{
+	height: 220px;
+	width: 280px;
+	position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	top: 58vh;
+	left: 10px;
+	right: 10px;
+	font-size: larger;
+	transition: transform 1s;
+	z-index: 999;
+	flex-direction: column;
+	align-items: start;
+	overflow: hidden;
+}
+.tableRow{
+	margin-bottom: 10px;
+	font-size: larger;
+}
+#shareButtonContainer{
+	transition: transform 1s;
+}
+
+.beat{
+	animation: animate 0.6s linear infinite;
+	z-index: 1;
+}
+@keyframes beat{
+	0%{
+		transform: scale(1.07)
+	}
+	80%{
+		transform: scale(1.0)
+	}
+	100%{
+		transform: scale(0.8)
+	}
+
+}
+
+
+
+
+
+
+
+.visible {
+	visibility: visible;
+	opacity: 1;
+	transition: opacity 1s linear;
+  }
+  .hidden {
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0s 0.3s, opacity 0.3s linear;
+  }
