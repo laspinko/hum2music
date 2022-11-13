@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hum2Music</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/wavesurfer.js"></script>
+    <script src="https://unpkg.com/wavesurfer.js/dist/plugin/wavesurfer.regions.min.js"></script>
+</head>
+
+<body>
+    <div class="container" name="circle button">
+        <div  id = "circleBtn" class="circle outer beat" onclick="moveUp()">
+            <box-icon id = "mic" class="icon" name='microphone-alt' type='solid' animation='tada-hover' color="rgb(94, 60, 16)"></box-icon>
+        </div>
+
+
+
+        <div class="uploadBtn" id="uploadBtn">
+           From Files
+        </div>
+    </div>
+    <div class="trimBar hidden" id="trimBar">
+        <div id="waveform" class="wave"></div>
+    </div>
+    <div class="edit buttonContainer hidden" id="buttonContainer">
+        <div class='buttonbox' onclick="trim()"><box-icon class='buttons' name='cut' color="rgb(54, 37, 15)"></box-icon></div>
+        <div class='buttonbox' onclick="playPause()"><box-icon id="play" class='buttons' name='play' color="rgb(54, 37, 15)" style="height: 110%; width: 110%;"></box-icon></div>
+        <div class='buttonbox'><box-icon class='buttons' name='trash' type="solid" color="rgb(54, 37, 15)"></box-icon></div>
+    </div>
+    <ol class="trimTable" id="trimTable">
+
+    </ol>
+
+
+    <div class="hidden nextBtn" id="nextBtn" onclick="nextPage()">
+        Final Step
+     </div>
+
+    <div class="share buttonContainer hidden" id="shareButtonContainer">
+        <div class='buttonbox'>
+            <box-icon class='buttons' name='analyse' type='solid' animation='spin-hover' color="rgb(54, 37, 15)"></box-icon>Enhance</div>
+        <div class='buttonbox'><box-icon class='buttons' name='download' type='solid' flip='horizontal' color="rgb(54, 37, 15)"></box-icon>Download</div>
+        <div class='buttonbox'><box-icon class='buttons' name='share' type='solid' flip='horizontal' color="rgb(54, 37, 15)"></box-icon>Share</div>
+    </div>
+
+
+
+
+
+
+
+</body>
+
+<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+<script src="index.js"></script>
+</html>
