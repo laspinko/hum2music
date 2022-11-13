@@ -10,6 +10,7 @@ from scipy.io import wavfile
 from pydub import AudioSegment
 
 import music21
+import random
 
 # THIS PROGRAM USES THE SPICE MODEL TO CONVERT HUM TO PITCH
 model = hub.load("https://tfhub.dev/google/spice/2")
@@ -162,12 +163,23 @@ print ('bpm: ', bpm)
 a = music21.tempo.MetronomeMark(number=bpm)
 sc.insert(0,a)
 
-for snote in best_notes_and_rests:   
-    d = 'half'
-    if snote == 'Rest':      
-      sc.append(music21.note.Rest(type=d))
-    else:
-      sc.append(music21.note.Note(snote, type=d))
+for i in range (0,10):
+  if i%3==0:
+    for snote in best_notes_and_rests:   
+      d = 'half'
+      if snote == 'Rest':      
+        sc.append(music21.note.Rest(type=d))
+      else:
+        sc.append(music21.note.Note(snote, type=d))
+  else:
+    for anote in best_notes_and_rests:   
+      d = 'half'
+      snote = random.choice(best_notes_and_rests)
+      if snote == 'Rest':      
+        sc.append(music21.note.Rest(type=d))
+      else:
+        sc.append(music21.note.Note(snote, type=d))
+      
 
 # Saving the recognized musical notes as a MIDI file
 converted_audio_file_as_midi = converted_audio_file[:-4] + '.mid'
