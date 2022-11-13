@@ -30,6 +30,8 @@ const b = document.getElementById("buttonContainer");
 const n = document.getElementById("nextBtn");
 const tt = document.getElementById("trimTable");
 const s = document.getElementById("shareButtonContainer");
+const l = document.getElementById("logo");
+
 var up = false;
 var finalPage = false;
 var trimCount = 0;
@@ -52,6 +54,9 @@ function moveUp() {
 		tt.classList.remove("hidden"); 
 		tt.classList.add("visible"); 
 		
+		l.classList.add("hidden"); 
+		l.classList.remove("visible"); 
+
 		up = true;
 	}
 	else {
@@ -70,12 +75,18 @@ function moveUp() {
 
 		tt.classList.add("hidden"); 
 		tt.classList.remove("visible"); 
+		
+		l.classList.remove("hidden"); 
+		l.classList.add("visible"); 
 
 		up = false
 	}
 }
 function playPause(){
 	wavesurfer.playPause()
+}
+function discard(){
+	document.getElementById("trimTable").innerHTML = "";
 }
 function trim(){
 	var newTrim = document.createElement("li");
@@ -122,7 +133,7 @@ function nextPage() {
 
 		finalPage = true;
 
-		n.textContent = "◂ Previous Page"
+		n.innerHTML = "◂ Previous Page"
 	}
 	else {
 		
@@ -144,7 +155,7 @@ function nextPage() {
 
 
 		finalPage = false
-		n.textContent = "Final Step"
+		n.innerHTML = "Final Step"
 	}
 }
 

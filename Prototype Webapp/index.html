@@ -4,16 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hum2Music</title>
+    <title>HummingBird - Music Anywhere, by Anyone</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/icon type" href="assets\logo.png" />
     <script src="https://unpkg.com/wavesurfer.js"></script>
     <script src="https://unpkg.com/wavesurfer.js/dist/plugin/wavesurfer.regions.min.js"></script>
 </head>
 
 <body>
+    <div class="logo" id="logo">
+        <img id="logoPic" src="assets\hummingbird logo.png" height="40px">
+        &nbsp; <div>HummingBird</div>
+     </div>
     <div class="container" name="circle button">
         <div  id = "circleBtn" class="circle outer beat" onclick="moveUp()">
             <box-icon id = "mic" class="icon" name='microphone-alt' type='solid' animation='tada-hover' color="rgb(94, 60, 16)"></box-icon>
@@ -31,9 +36,9 @@
     <div class="edit buttonContainer hidden" id="buttonContainer">
         <div class='buttonbox' onclick="trim()"><box-icon class='buttons' name='cut' color="rgb(54, 37, 15)"></box-icon></div>
         <div class='buttonbox' onclick="playPause()"><box-icon id="play" class='buttons' name='play' color="rgb(54, 37, 15)" style="height: 110%; width: 110%;"></box-icon></div>
-        <div class='buttonbox'><box-icon class='buttons' name='trash' type="solid" color="rgb(54, 37, 15)"></box-icon></div>
+        <div class='buttonbox'onclick="discard()"><box-icon class='buttons' name='trash' type="solid" color="rgb(54, 37, 15)"></box-icon></div>
     </div>
-    <ol class="trimTable" id="trimTable">
+    <ol class="trimTable hidden" id="trimTable">
 
     </ol>
 

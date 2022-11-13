@@ -6,6 +6,22 @@ body{
 	margin: 0;
 	font-family: 'Quicksand', sans-serif;
 }
+.logo{
+	position: absolute;
+	top:0;
+	left: 10px;
+	right: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 50px;
+	font-size: 30px;
+	font-weight: 800;
+	display: flex ;
+	align-items: center;
+	justify-content: center;
+	color: rgb(78, 52, 18);
+}
+
 
 .container{
 	background-image: linear-gradient(rgb(25, 154, 132), rgb(204, 96, 8));
@@ -156,7 +172,7 @@ body{
 	z-index: 999;
 	flex-direction: column;
 	align-items: start;
-	overflow: scroll;
+	overflow: hidden;
 }
 .tableRow{
 	margin-bottom: 10px;
